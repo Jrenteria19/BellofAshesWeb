@@ -187,24 +187,47 @@ function Achievements() {
         <p>Registra tu progreso, colecciona artefactos legendarios y demuestra tu maestría en el campo de batalla.</p>
       </div>
 
+      <div className="wiki-select-container">
+        <select 
+          className="wiki-select glass"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="achievements">Logros</option>
+          <option value="items">Objetos</option>
+        </select>
+
+        {filter === 'achievements' && (
+          <select
+            className="wiki-select glass"
+            value={achievementFilter}
+            onChange={(e) => setAchievementFilter(e.target.value)}
+          >
+            <option value="all">Todos</option>
+            <option value="completed">Completados</option>
+            <option value="pending">Pendientes</option>
+          </select>
+        )}
+      </div>
+
       <div className="wiki-layout">
         <aside className="wiki-menu glass">
           <nav>
             <ul>
               <li>
-                <a href="#achievements" className={filter === 'achievements' ? 'active' : ''} onClick={() => setFilter('achievements')}>
+                <a href="#achievements" className={filter === 'achievements' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setFilter('achievements'); }}>
                   Logros
                 </a>
                 {filter === 'achievements' && (
                   <ul className="sub-menu">
-                    <li><a href="#all" className={achievementFilter === 'all' ? 'active' : ''} onClick={() => setAchievementFilter('all')}>Todos</a></li>
-                    <li><a href="#completed" className={achievementFilter === 'completed' ? 'active' : ''} onClick={() => setAchievementFilter('completed')}>Completados</a></li>
-                    <li><a href="#pending" className={achievementFilter === 'pending' ? 'active' : ''} onClick={() => setAchievementFilter('pending')}>Pendientes</a></li>
+                    <li><a href="#all" className={achievementFilter === 'all' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('all'); }}>Todos</a></li>
+                    <li><a href="#completed" className={achievementFilter === 'completed' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('completed'); }}>Completados</a></li>
+                    <li><a href="#pending" className={achievementFilter === 'pending' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('pending'); }}>Pendientes</a></li>
                   </ul>
                 )}
               </li>
               <li>
-                <a href="#items" className={filter === 'items' ? 'active' : ''} onClick={() => setFilter('items')}>
+                <a href="#items" className={filter === 'items' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setFilter('items'); }}>
                   Objetos
                 </a>
               </li>

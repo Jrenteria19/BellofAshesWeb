@@ -126,6 +126,50 @@
     box-shadow: 0 0 25px rgba(255, 179, 0, 0.5);
 }
 
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(229, 57, 53, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(229, 57, 53, 0.8);
+    }
+}
+
+.btn-play {
+    background-color: var(--color-primary);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid #c02d2a;
+    border-bottom: 5px solid #9a2421;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+    animation: pulse-glow 2.5s infinite;
+}
+
+.btn-play:hover {
+    background-color: #ff7043;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-play:active {
+    transform: translateY(2px);
+    border-bottom: 2px solid #9a2421;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-play:disabled {
+    background-color: #a5a5a5;
+    border-color: #8c8c8c;
+    border-bottom-width: 2px;
+    color: #e0e0e0;
+    cursor: not-allowed;
+    animation: none;
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
 /* --- Sección Hero --- */
 .hero {
     min-height: 100vh;
@@ -585,69 +629,78 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --- Estilos de Logros y Objetos Page --- */
+
+
 .wiki-layout {
     display: flex;
-    gap: 2rem;
+    flex-direction: column;
+    gap: 1.5rem;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: 1rem;
 }
 
 .wiki-menu {
-    flex: 0 0 250px;
-    padding: 1.5rem;
-    border-radius: var(--radius);
-    height: fit-content;
-    position: sticky;
-    top: 100px; /* Adjust based on your header height */
+    display: none;
 }
 
+.wiki-select-container {
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.wiki-content {
+    width: 100%;
+    padding: 2rem;
+    border-radius: var(--radius);
+}
+
+@media (min-width: 769px) {
+    .wiki-layout {
+        flex-direction: row;
+        gap: 2rem;
+        padding: 2rem 0;
+    }
+
+    .wiki-menu {
+        display: block;
+        flex: 0 0 250px;
+        padding: 1.5rem;
+        border-radius: var(--radius);
+        height: fit-content;
+        position: sticky;
+        top: 100px;
+    }
+
+    .wiki-select-container {
+        display: none;
+    }
+
+    .wiki-content {
+        flex: 1;
+        width: auto;
+    }
+}
+
+.wiki-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background-color: rgba(26, 26, 26, 0.8);
+    color: var(--foreground);
+    font-size: 1rem;
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f5f5f5%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 0.8em;
+}
 .wiki-menu nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.wiki-menu nav ul li a {
-    display: block;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.5rem;
-    border-radius: var(--radius);
-    color: var(--foreground);
-    text-decoration: none;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.wiki-menu nav ul li a:hover,
-.wiki-menu nav ul li a.active {
-    background-color: var(--color-primary);
-    color: var(--foreground);
-}
-
-.wiki-menu .sub-menu {
-    list-style: none;
-    padding: 0.5rem 0 0.5rem 1.5rem;
-    margin: 0;
-    border-left: 2px solid var(--border);
-    margin-top: 0.5rem;
-}
-
-.wiki-menu .sub-menu li a {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    color: var(--color-muted);
-}
-
-.wiki-menu .sub-menu li a:hover,
-.wiki-menu .sub-menu li a.active {
-    background-color: rgba(var(--color-primary-rgb), 0.2);
-    color: var(--color-primary);
-}
-
-.wiki-content {
-    flex: 1;
-    padding: 2rem;
-    border-radius: var(--radius);
 }
 
 .achievements-list,
@@ -774,7 +827,8 @@ a { text-decoration: none; color: inherit; }
 .char-card .details-btn { display: block; width: 100%; text-align: center; background-color: var(--accent-color); color: var(--foreground); padding: 0.75rem; border-radius: calc(var(--radius) - 4px); font-weight: 700; transition: all 0.3s ease; }
 .char-card:hover .details-btn { box-shadow: 0 0 20px var(--accent-color); }
 
-.modal {
+
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -788,23 +842,29 @@ a { text-decoration: none; color: inherit; }
     backdrop-filter: blur(10px);
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s 0.3s, opacity 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0s 0.3s;
 }
-.modal:target {
+
+.modal-overlay.open {
     visibility: visible;
     opacity: 1;
-    transition: visibility 0s, opacity 0.3s ease;
+    transition: opacity 0.3s ease;
 }
-.modal-content {
-    background: #1a1a1a;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
+
+.modal {
+    position: relative;
     width: 90%;
     max-width: 900px;
     max-height: 90vh;
     overflow-y: auto;
-    position: relative;
     animation: modalFadeIn 0.4s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.modal-content {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    position: relative;
 }
 .modal-close {
     position: absolute;
@@ -815,6 +875,7 @@ a { text-decoration: none; color: inherit; }
     font-size: 2rem;
     line-height: 1;
     transition: color 0.3s ease;
+    z-index: 1;
 }
 .modal-close:hover { color: var(--foreground); }
 .modal-body { display: grid; grid-template-columns: 1fr; }

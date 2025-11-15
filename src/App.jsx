@@ -24,7 +24,7 @@ const requestNotificationPermission = async (setIsPushReady) => {
       // --- IMPORTANTE ---
       // Debes obtener esta VAPID key desde tu consola de Firebase:
       // Configuración del proyecto > Cloud Messaging > Certificados push web > Generar par de claves
-      const vapidKey = 'BOnrz5RMbyxD4E31WfsbrphT5QUg4eP80VTLpnkGtnwIvqGgiE4CQm_IQCZENz46KHOt98Ou1ROnK3PCyG8iEh0'; // REEMPLAZA ESTA CLAVE
+      const vapidKey = import.meta.env.VITE_FIREBASE_VAPID_KEY; // REEMPLAZA ESTA CLAVE
 
       const fcmToken = await getToken(messaging, {
         vapidKey,

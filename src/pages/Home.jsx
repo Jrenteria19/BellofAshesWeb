@@ -1,7 +1,23 @@
+import { useState } from 'react';
 import '../App.css';
 import InstallPWA from './InstallPWA';
 
 function Home({ installPrompt }) {
+  const [isDownloading, setDownloading] = useState(false);
+
+  const handleDownloadClick = () => {
+    setDownloading(true);
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.href = '/bell-of-ashes-community.apk';
+      link.download = 'bell-of-ashes-community.apk';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      setDownloading(false);
+    }, 2000);
+  };
+
   return (
     <>
       <section className="hero">
@@ -12,7 +28,9 @@ function Home({ installPrompt }) {
             Sumérgete en un mundo de cenizas y brasas donde los dioses han caído. Empuña un poder ancestral y renace de las ruinas para forjar un nuevo destino.
           </p>
           <div className="cta-buttons flex justify-center gap-4">
-            <a href="#" className="btn btn-secondary">Descargar Bell of Ashes</a>
+            <button onClick={handleDownloadClick} className="btn btn-secondary" disabled={isDownloading}>
+              {isDownloading ? 'Descargando...' : 'Descargar Bell of Ashes'}
+            </button>
           </div>
         </div>
       </section>
