@@ -1,149 +1,49 @@
-import { useState, useEffect } from 'react';
-
-const initialAchievementsData = [
-    {
-      id: 1,
-      title: 'Inicio del Peregrino',
-      description: 'Llegaste al Atrio de las Brasas, dando el primer paso en tu destino.',
-      category: 'Historia/Progresión',
-      icon: '🌅',
-      completed: false,
-    },
-    {
-      id: 2,
-      title: 'Fuego en la Capa',
-      description: 'Desbloquea el poder del "Corazón de Ceniza" y contempla las brasas en tu vestimenta.',
-      category: 'Habilidad/Objeto',
-      icon: '🔥',
-      completed: false,
-    },
-    {
-      id: 3,
-      title: 'El Eco Resuena',
-      description: 'Derrota a Verdugo del Martillo, el primer gran jefe del culto.',
-      category: 'Jefe',
-      icon: '🐲',
-      completed: false,
-    },
-    {
-      id: 4,
-      title: 'Alas de la Diosa',
-      description: 'Obtén la Habilidad de Salto Mejorado (Doble Salto) para navegar las alturas con ligereza.',
-      category: 'Movimiento',
-      icon: '🕊️',
-      completed: false,
-    },
-    {
-      id: 5,
-      title: 'La Forja del Dolor',
-      description: 'Ayuda a Thyros, el Forjador de Ecos, y libera el dolor de su yunque.',
-      category: 'Aliado',
-      icon: '🛠️',
-      completed: false,
-    },
-    {
-      id: 6,
-      title: 'Guardián de Espejos',
-      description: 'Derrota al Centinela de Cristal o a Thalgron, Guardián de Escorias.',
-      category: 'Jefe',
-      icon: '🛡️',
-      completed: false,
-    },
-    {
-      id: 7,
-      title: 'Visión Oculta',
-      description: 'Utiliza la Lente de Sangre para ver al menos un muro falso y acceder a un pasaje oculto.',
-      category: 'Exploración/Objeto',
-      icon: '👁️',
-      completed: false,
-    },
-    {
-      id: 8,
-      title: 'Un Canto en la Sombra',
-      description: 'Derrota a Kael, el Peregrino Oscuro, en su último duelo.',
-      category: 'Historia/Jefe',
-      icon: '👤',
-      completed: false,
-    },
-    {
-      id: 9,
-      title: 'Lágrimas y Cenizas',
-      description: 'Alcanza el desenlace donde el ciclo termina en la tristeza de Ignira.',
-      category: 'Final',
-      icon: '💧',
-      completed: false,
-    },
-    {
-      id: 10,
-      title: 'El Amanecer del Equilibrio',
-      description: 'Quiebra la Campana del Eco sin sacrificarte, rescatando a todos los aliados y reuniendo las reliquias.',
-      category: 'Final Verdadero',
-      icon: '🌟',
-      completed: false,
-    },
-  ];
-
-  const initialItemsData = [
-    {
-      id: 1,
-      title: 'Corazón de Ceniza',
-      description: 'Aumenta ligeramente la vida máxima, pero al recibir daño deja un rastro de fuego que hiere a los enemigos cercanos.',
-      icon: '❤️‍🔥',
-      found: false,
-    },
-    {
-      id: 2,
-      title: 'Oración Rota',
-      description: 'Reduce el tiempo de recuperación al morir, permitiendo reintentos más rápidos.',
-      icon: '💔',
-      found: false,
-    },
-    {
-      id: 3,
-      title: 'Fragmento de Brasa Antigua',
-      description: 'Incrementa el daño de ataques cargados, pero consume más energía al usarlos.',
-      icon: '💥',
-      found: false,
-    },
-    {
-        id: 4,
-        title: 'Broche Carmesí',
-        description: 'Aumenta la velocidad de movimiento cuando la salud está baja.',
-        icon: '🩸',
-        found: false,
-    },
-    {
-        id: 5,
-        title: 'Susurro de los Retratos',
-        description: 'Mejora el alcance de los ataques mágicos, pero reduce la fuerza de los ataques físicos.',
-        icon: '👻',
-        found: false,
-    },
-    {
-        id: 6,
-        title: 'Campana Hueca',
-        description: 'Llama a espíritus de humo que atacan al azar cuando usas tu habilidad especial.',
-        icon: '🔔',
-        found: false,
-    },
-    {
-        id: 7,
-        title: 'Lente de Sangre',
-        description: 'Permite ver muros falsos y pasajes ocultos (fundamental para la exploración y el género Metroidvania).',
-        icon: '렌즈',
-        found: false,
-    }
-  ];
+import { useState, useEffect, useMemo } from 'react';
+import { useI18n } from '../components/i18n';
 
 function Achievements() {
+  const { t } = useI18n();
+
+  const initialAchievementsData = useMemo(() => [
+    { id: 1, icon: '🌅', completed: false, category: 'Historia/Progresión' },
+    { id: 2, icon: '🔥', completed: false, category: 'Habilidad/Objeto' },
+    { id: 3, icon: '🐲', completed: false, category: 'Jefe' },
+    { id: 4, icon: '🕊️', completed: false, category: 'Movimiento' },
+    { id: 5, icon: '🛠️', completed: false, category: 'Aliado' },
+    { id: 6, icon: '🛡️', completed: false, category: 'Jefe' },
+    { id: 7, icon: '👁️', completed: false, category: 'Exploración/Objeto' },
+    { id: 8, icon: '👤', completed: false, category: 'Historia/Jefe' },
+    { id: 9, icon: '💧', completed: false, category: 'Final' },
+    { id: 10, icon: '🌟', completed: false, category: 'Final Verdadero' },
+  ].map(ach => ({ ...ach, title: t(`achievements.${ach.id}.title`), description: t(`achievements.${ach.id}.desc`) })), [t]);
+
+  const initialItemsData = useMemo(() => [
+    { id: 1, icon: '❤️‍🔥', found: false },
+    { id: 2, icon: '💔', found: false },
+    { id: 3, icon: '💥', found: false },
+    { id: 4, icon: '🩸', found: false },
+    { id: 5, icon: '👻', found: false },
+    { id: 6, icon: '🔔', found: false },
+    { id: 7, icon: '렌즈', found: false },
+  ].map(item => ({ ...item, title: t(`items.${item.id}.title`), description: t(`items.${item.id}.desc`) })), [t]);
+
   const [achievements, setAchievements] = useState(() => {
     const savedAchievements = localStorage.getItem('achievements');
-    return savedAchievements ? JSON.parse(savedAchievements) : initialAchievementsData;
+    if (savedAchievements) {
+      const parsed = JSON.parse(savedAchievements);
+      // Merge saved state with translated text
+      return initialAchievementsData.map(ach => ({ ...ach, completed: parsed.find(s => s.id === ach.id)?.completed || false }));
+    }
+    return initialAchievementsData;
   });
 
   const [items, setItems] = useState(() => {
     const savedItems = localStorage.getItem('items');
-    return savedItems ? JSON.parse(savedItems) : initialItemsData;
+    if (savedItems) {
+      const parsed = JSON.parse(savedItems);
+      return initialItemsData.map(item => ({ ...item, found: parsed.find(s => s.id === item.id)?.found || false }));
+    }
+    return initialItemsData;
   });
 
   const [filter, setFilter] = useState('achievements');
@@ -151,11 +51,19 @@ function Achievements() {
 
   useEffect(() => {
     localStorage.setItem('achievements', JSON.stringify(achievements));
-  }, [achievements]);
+  }, [achievements, t]);
 
   useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
-  }, [items]);
+  }, [items, t]);
+
+  useEffect(() => {
+    setAchievements(prev => prev.map(ach => ({ ...ach, title: t(`achievements.${ach.id}.title`), description: t(`achievements.${ach.id}.desc`) })));
+  }, [t, initialAchievementsData]);
+
+  useEffect(() => {
+    setItems(prev => prev.map(item => ({ ...item, title: t(`items.${item.id}.title`), description: t(`items.${item.id}.desc`) })));
+  }, [t, initialItemsData]);
 
   const handleAchievementCheckboxChange = (id) => {
     setAchievements(
@@ -183,8 +91,8 @@ function Achievements() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h1 className="text-fire-glow">Logros y Objetos</h1>
-        <p>Registra tu progreso, colecciona artefactos legendarios y demuestra tu maestría en el campo de batalla.</p>
+        <h1 className="text-fire-glow">{t('achievements.title')}</h1>
+        <p>{t('achievements.subtitle')}</p>
       </div>
 
       <div className="wiki-select-container">
@@ -193,8 +101,8 @@ function Achievements() {
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
-          <option value="achievements">Logros</option>
-          <option value="items">Objetos</option>
+          <option value="achievements">{t('achievements.filter.achievements')}</option>
+          <option value="items">{t('achievements.filter.items')}</option>
         </select>
 
         {filter === 'achievements' && (
@@ -203,9 +111,9 @@ function Achievements() {
             value={achievementFilter}
             onChange={(e) => setAchievementFilter(e.target.value)}
           >
-            <option value="all">Todos</option>
-            <option value="completed">Completados</option>
-            <option value="pending">Pendientes</option>
+            <option value="all">{t('achievements.filter.all')}</option>
+            <option value="completed">{t('achievements.filter.completed')}</option>
+            <option value="pending">{t('achievements.filter.pending')}</option>
           </select>
         )}
       </div>
@@ -216,19 +124,19 @@ function Achievements() {
             <ul>
               <li>
                 <a href="#achievements" className={filter === 'achievements' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setFilter('achievements'); }}>
-                  Logros
+                  {t('achievements.filter.achievements')}
                 </a>
                 {filter === 'achievements' && (
                   <ul className="sub-menu">
-                    <li><a href="#all" className={achievementFilter === 'all' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('all'); }}>Todos</a></li>
-                    <li><a href="#completed" className={achievementFilter === 'completed' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('completed'); }}>Completados</a></li>
-                    <li><a href="#pending" className={achievementFilter === 'pending' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('pending'); }}>Pendientes</a></li>
+                    <li><a href="#all" className={achievementFilter === 'all' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('all'); }}>{t('achievements.filter.all')}</a></li>
+                    <li><a href="#completed" className={achievementFilter === 'completed' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('completed'); }}>{t('achievements.filter.completed')}</a></li>
+                    <li><a href="#pending" className={achievementFilter === 'pending' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setAchievementFilter('pending'); }}>{t('achievements.filter.pending')}</a></li>
                   </ul>
                 )}
               </li>
               <li>
                 <a href="#items" className={filter === 'items' ? 'active' : ''} onClick={(e) => { e.preventDefault(); setFilter('items'); }}>
-                  Objetos
+                  {t('achievements.filter.items')}
                 </a>
               </li>
             </ul>

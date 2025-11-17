@@ -1,11 +1,20 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
+import { useI18n } from './i18n';
+
+const navLinks = [
+  { to: '/historia', key: 'nav.history' },
+  { to: '/personajes', key: 'nav.characters' },
+  { to: '/jugabilidad', key: 'nav.gameplay' },
+  { to: '/logros', key: 'nav.achievements' },
+];
 
 const Layout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isGameLoading, setGameLoading] = useState(false);
   const menuRef = useRef(null);
   const hamburgerRef = useRef(null);
+  const { t, setLang, lang } = useI18n();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -52,13 +61,23 @@ const Layout = () => {
 
           {/* Desktop Menu */}
           <div className="nav-links items-center gap-8">
-            <Link to="/historia">Historia</Link>
-            <Link to="/personajes">Personajes</Link>
-            <Link to="/jugabilidad">Jugabilidad</Link>
-            <Link to="/logros">Logros y Objetos</Link>
+            {navLinks.map((link) => (
+              <Link key={link.to} to={link.to}>{t(link.key)}</Link>
+            ))}
             <button onClick={handlePlayClick} className="btn btn-play" disabled={isGameLoading}>
-              {isGameLoading ? 'Descargando...' : 'Jugar Ahora'}
+              {isGameLoading ? t('nav.downloading') : t('nav.playNow')}
             </button>
+            <div className="language-selector">
+              <select 
+                value={lang} 
+                onChange={(e) => setLang(e.target.value)}
+                className="glass"
+                aria-label="Select language"
+              >
+                <option value="es">{t('lang.es')}</option>
+                <option value="en">{t('lang.en')}</option>
+              </select>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -77,14 +96,24 @@ const Layout = () => {
 
         {isMenuOpen && (
           <div ref={menuRef} className={`mobile-menu open`}>
-            <Link to="/" onClick={() => setIsMenuOpen(false)}>Principal</Link>
-            <Link to="/historia" onClick={() => setIsMenuOpen(false)}>Historia</Link>
-            <Link to="/personajes" onClick={() => setIsMenuOpen(false)}>Personajes</Link>
-            <Link to="/jugabilidad" onClick={() => setIsMenuOpen(false)}>Jugabilidad</Link>
-            <Link to="/logros" onClick={() => setIsMenuOpen(false)}>Logros y Objetos</Link>
+            <Link to="/" onClick={() => setIsMenuOpen(false)}>{t('nav.home')}</Link>
+            {navLinks.map((link) => (
+              <Link key={link.to} to={link.to} onClick={() => setIsMenuOpen(false)}>{t(link.key)}</Link>
+            ))}
             <button onClick={handlePlayClick} className="btn btn-play mt-4" disabled={isGameLoading}>
-              {isGameLoading ? 'Descargando...' : 'Jugar Ahora'}
+              {isGameLoading ? t('nav.downloading') : t('nav.playNow')}
             </button>
+            <div className="language-selector-mobile">
+              <select 
+                value={lang} 
+                onChange={(e) => setLang(e.target.value)}
+                className="glass"
+                aria-label="Select language"
+              >
+                <option value="es">{t('lang.es')}</option>
+                <option value="en">{t('lang.en')}</option>
+              </select>
+            </div>
           </div>
         )}
       </nav>
@@ -99,17 +128,16 @@ const Layout = () => {
               <img src="/logo.png" alt="Bell of Ashes Logo" className="h-16 w-auto" />
               <span>Bell of Ashes</span>
             </a>
-            <p>El fuego de la creación arde eternamente.</p>
+            <p>{t('footer.motto')}</p>
           </div>
           <div className="footer-column">
-            <h4>Explorar</h4>
-            <Link to="/historia">Historia</Link>
-            <Link to="/personajes">Personajes</Link>
-            <Link to="/jugabilidad">Jugabilidad</Link>
-            <Link to="/logros">Logros</Link>
+            <h4>{t('footer.explore')}</h4>
+            {navLinks.map((link) => (
+              <Link key={link.to} to={link.to}>{t(link.key)}</Link>
+            ))}
           </div>
           <div className="footer-column">
-            <h4>Síguenos</h4>
+            <h4>{t('footer.follow')}</h4>
             <div className="social-links">
               <a href="https://x.com/bellofashes" title="X" target="_blank" rel="noopener noreferrer">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
@@ -117,12 +145,12 @@ const Layout = () => {
             </div>
           </div>
           <div className="footer-column">
-            <h4>Creadores</h4>
+            <h4>{t('footer.creators')}</h4>
             <p>Alejandra, Brayan, Adrian y Junior</p>
           </div>
         </div>
         <div className="footer-bottom">
-          © 2025 Bell of Ashes. Todos los derechos reservados.
+          {t('footer.copyLine')}
         </div>
       </footer>
     </div>
