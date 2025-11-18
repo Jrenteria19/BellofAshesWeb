@@ -74,7 +74,7 @@ function Gameplay() {
                 <h4 className="text-gold-glow text-xl font-bold mt-6 mb-2" dangerouslySetInnerHTML={{ __html: t('gameplay.data.rules.h4') }} />
                 <p className="text-lg leading-relaxed" dangerouslySetInnerHTML={{ __html: t('gameplay.data.rules.p3') }} />
                 <ul className="list-disc list-inside text-lg leading-relaxed mt-2">
-                    <li className="mb-2" dangerouslySetInnerHTML={{ __html: t('gameplay.data.rules.l6') }}>
+                    <li className="mb-2"><span dangerouslySetInnerHTML={{ __html: t('gameplay.data.rules.l6') }} />
                         <ul className="list-disc list-inside ml-6 mt-2">
                             <li dangerouslySetInnerHTML={{ __html: t('gameplay.data.rules.l6_1') }} />
                             <li dangerouslySetInnerHTML={{ __html: t('gameplay.data.rules.l6_2') }} />
