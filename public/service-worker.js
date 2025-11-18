@@ -6,10 +6,7 @@ const urlsToCache = [
   '/logo.png',
   '/arieth.png',
   '/axelin.png',
-  '/solonne.png',
-  '/icons/android-chrome-192x192.png',
-  '/icons/android-chrome-512x512.png',
-  '/icons/maskable_icon.png',
+  '/solonne.png'
 ];
 
 // Importa los scripts de Firebase.
@@ -59,8 +56,8 @@ self.addEventListener('fetch', (event) => {
           });
         })
         .catch(() => {
-          // If the fetch fails (offline), return the cached index.html as a fallback.
-          return caches.match('/');
+          // If the fetch fails (offline), try to match the request in the cache, or fall back to the main page.
+          return caches.match(event.request) || caches.match('/');
         })
     );
     return;

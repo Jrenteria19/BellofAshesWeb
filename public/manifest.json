@@ -1,20 +1,25 @@
 {
+  "short_name": "Bell of Ashes",
   "name": "Bell of Ashes",
-  "short_name": "BoA",
+  "description": "Lleva el Fuego Contigo. Instala Bell of Ashes en tu dispositivo para un acceso rápido y una experiencia inmersiva.",
+  "lang": "es",
   "icons": [
     {
       "src": "/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "sizes": "192x192", 
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icons/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "theme_color": "#e53935",
-  "background_color": "#e53935"
+  "theme_color": "#1a1a1a",
+  "background_color": "#1a1a1a"
 }

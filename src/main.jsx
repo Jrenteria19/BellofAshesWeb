@@ -7,22 +7,9 @@ import { LanguageProvider } from './components/i18n.jsx'
 
 import { BrowserRouter } from 'react-router-dom';
 
-// Register the service worker
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(registration => {
-
-      })
-      .catch(registrationError => {
-
-      });
-  });
-}
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <LanguageProvider>
         <App />
       </LanguageProvider>
